@@ -1,0 +1,742 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COMELEC BSKE 2026 - SK Age Verifier</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #0b0b0b;
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            border: 2px solid #00ff00;
+            padding: 25px;
+            background: #050505;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .header .republic {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header .office {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .header .city {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 25px 0 5px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .election {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .line {
+            border-top: 1px solid #00ff00;
+            margin: 20px 0;
+        }
+
+        .requirements {
+            line-height: 1.8;
+        }
+
+        .input-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 17px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 14px;
+            background: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 20px;
+            text-align: center;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 13px 30px;
+            background: #00aa00;
+            color: white;
+            border: 2px solid #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .result {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .result-box {
+            padding: 20px;
+            border: 2px solid #00ff00;
+            text-align: center;
+        }
+
+        .exact-age {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .age-numbers {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .eligible {
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        .not-eligible {
+            color: #ff3333;
+            border-color: #ff3333;
+        }
+
+        .status {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .invalid {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            border: 2px solid #ff3333;
+            color: #ff3333;
+            text-align: center;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #00cc00;
+        }
+
+        .reset {
+            background: #333;
+            border-color: #777;
+            color: white;
+        }
+
+        .reset:hover {
+            background: #555;
+            color: white;
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #008800;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .header .republic {
+                font-size: 16px;
+            }
+
+            .header .office,
+            .header .city {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 17px;
+            }
+
+            .exact-age {
+                font-size: 20px;
+            }
+
+            .age-numbers {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="header">
+
+        <div class="republic">
+            REPUBLIC OF THE PHILIPPINES
+        </div>
+
+        <div class="office">
+            COMMISSION ON ELECTIONS
+        </div>
+
+        <div class="office">
+            OFFICE OF THE CITY ELECTION OFFICER
+        </div>
+
+        <div class="city">
+            SAN JOSE DEL MONTE CITY, BULACAN
+        </div>
+
+        <h1>COMELEC BSKE 2026</h1>
+        <h2>SK AGE VERIFIER</h2>
+
+        <div class="election">
+            ELECTION DAY<br>
+            NOVEMBER 2, 2026
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <!-- =====================================================
+         AGE REQUIREMENTS
+         ===================================================== -->
+
+    <div class="requirements">
+
+        <strong>CANDIDATE AGE REQUIREMENT</strong>
+
+        <br><br>
+
+        Minimum Age : 18 years old<br>
+        Maximum Age : 24 years old<br><br>
+
+        Input Format: YYYY-MM-DD<br>
+        Example: 2002-11-02
+
+    </div>
+
+    <div class="line"></div>
+
+    <!-- =====================================================
+         INPUT
+         ===================================================== -->
+
+    <div class="input-section">
+
+        <label for="dob">
+            ENTER DATE OF BIRTH
+        </label>
+
+        <input
+            type="text"
+            id="dob"
+            maxlength="10"
+            placeholder="YYYY-MM-DD"
+            autocomplete="off"
+            inputmode="numeric"
+        >
+
+        <br>
+
+        <button onclick="verifyAge()">
+            VERIFY AGE
+        </button>
+
+    </div>
+
+    <!-- =====================================================
+         INVALID ENTRY
+         ===================================================== -->
+
+    <div id="invalidMessage" class="invalid">
+
+        <strong>INVALID ENTRY</strong>
+
+        <br><br>
+
+        Invalid entry, please check the format.
+
+        <br><br>
+
+        Required format: YYYY-MM-DD
+
+        <br>
+
+        Example: 2002-11-02
+
+    </div>
+
+    <!-- =====================================================
+         RESULT
+         ===================================================== -->
+
+    <div id="result" class="result">
+
+        <div id="resultBox" class="result-box">
+
+            <strong>AGE VERIFICATION RESULT</strong>
+
+            <div class="line"></div>
+
+            Election Day:<br>
+            <strong>NOVEMBER 2, 2026</strong>
+
+            <br><br>
+
+            Date of Birth:<br>
+            <strong id="birthDateDisplay"></strong>
+
+            <div class="line"></div>
+
+            <strong>EXACT AGE</strong>
+
+            <div class="exact-age" id="exactAge"></div>
+
+            <div class="line"></div>
+
+            <strong>AGE ON ELECTION DAY</strong>
+
+            <div class="age-numbers" id="ageNumbers"></div>
+
+            <div class="line"></div>
+
+            <div class="status" id="status"></div>
+
+            <div id="statusDetails"></div>
+
+        </div>
+
+        <div style="text-align:center;">
+
+            <button class="reset" onclick="resetVerifier()">
+                VERIFY ANOTHER ASPIRANT
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Age verification is based on the fixed election date:
+        November 2, 2026.
+    </div>
+
+</div>
+
+
+<script>
+
+    // =========================================================
+    // FIXED ELECTION DATE
+    // =========================================================
+
+    const ELECTION_YEAR = 2026;
+    const ELECTION_MONTH = 10; // JavaScript months: 0 = January
+    const ELECTION_DAY = 2;
+
+    const electionDate = new Date(
+        ELECTION_YEAR,
+        ELECTION_MONTH,
+        ELECTION_DAY
+    );
+
+
+    // =========================================================
+    // VERIFY AGE
+    // =========================================================
+
+    function verifyAge() {
+
+        const input = document.getElementById("dob");
+
+        const dobText = input.value.trim();
+
+        const invalidMessage =
+            document.getElementById("invalidMessage");
+
+        const result =
+            document.getElementById("result");
+
+        const resultBox =
+            document.getElementById("resultBox");
+
+
+        // Hide previous messages
+
+        invalidMessage.style.display = "none";
+        result.style.display = "none";
+
+
+        // =====================================================
+        // STRICT YYYY-MM-DD FORMAT
+        // =====================================================
+
+        const format =
+            /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+
+        if (!format.test(dobText)) {
+
+            showInvalid();
+
+            return;
+        }
+
+
+        // =====================================================
+        // READ DATE PARTS
+        // =====================================================
+
+        const parts = dobText.split("-");
+
+        const year = Number(parts[0]);
+        const month = Number(parts[1]);
+        const day = Number(parts[2]);
+
+
+        // =====================================================
+        // CHECK THAT THE DATE ACTUALLY EXISTS
+        // =====================================================
+
+        const dob = new Date(
+            year,
+            month - 1,
+            day
+        );
+
+
+        if (
+            dob.getFullYear() !== year ||
+            dob.getMonth() !== month - 1 ||
+            dob.getDate() !== day
+        ) {
+
+            showInvalid();
+
+            return;
+        }
+
+
+        // =====================================================
+        // DATE CANNOT BE AFTER ELECTION DAY
+        // =====================================================
+
+        if (dob > electionDate) {
+
+            showInvalid();
+
+            return;
+        }
+
+
+        // =====================================================
+        // CALCULATE EXACT AGE
+        // =====================================================
+
+        let years =
+            ELECTION_YEAR - year;
+
+        let months =
+            ELECTION_MONTH - (month - 1);
+
+        let days =
+            ELECTION_DAY - day;
+
+
+        // Borrow days from previous month
+
+        if (days < 0) {
+
+            months--;
+
+            const previousMonth =
+                new Date(
+                    ELECTION_YEAR,
+                    ELECTION_MONTH,
+                    0
+                );
+
+            days += previousMonth.getDate();
+        }
+
+
+        // Borrow months from previous year
+
+        if (months < 0) {
+
+            months += 12;
+            years--;
+        }
+
+
+        // =====================================================
+        // DETERMINE ELIGIBILITY
+        // =====================================================
+
+        const minimumDate =
+            new Date(
+                year + 18,
+                month - 1,
+                day
+            );
+
+        const maximumDate =
+            new Date(
+                year + 24,
+                month - 1,
+                day
+            );
+
+
+        const eligible =
+            electionDate >= minimumDate &&
+            electionDate <= maximumDate;
+
+
+        // =====================================================
+        // DISPLAY BASIC INFORMATION
+        // =====================================================
+
+        document.getElementById(
+            "birthDateDisplay"
+        ).textContent = dobText;
+
+
+        document.getElementById(
+            "exactAge"
+        ).textContent =
+            years + " " +
+            (years === 1 ? "year" : "years") +
+            ", " +
+            months + " " +
+            (months === 1 ? "month" : "months") +
+            ", and " +
+            days + " " +
+            (days === 1 ? "day" : "days") +
+            " old";
+
+
+        document.getElementById(
+            "ageNumbers"
+        ).textContent =
+            years + " YEARS   " +
+            months + " MONTHS   " +
+            days + " DAYS";
+
+
+        // =====================================================
+        // DISPLAY ELIGIBILITY
+        // =====================================================
+
+        const status =
+            document.getElementById("status");
+
+        const statusDetails =
+            document.getElementById("statusDetails");
+
+
+        if (eligible) {
+
+            resultBox.className =
+                "result-box eligible";
+
+            status.textContent =
+                "ELIGIBLE";
+
+            statusDetails.innerHTML =
+                "<strong>AGE QUALIFICATION: PASSED</strong>" +
+                "<br><br>" +
+                "The aspirant is " +
+                years + " " +
+                (years === 1 ? "year" : "years") +
+                ", " +
+                months + " " +
+                (months === 1 ? "month" : "months") +
+                ", and " +
+                days + " " +
+                (days === 1 ? "day" : "days") +
+                " old on November 2, 2026." +
+                "<br><br>" +
+                "The age is within the required range " +
+                "of 18 through exactly 24 years old.";
+
+        } else {
+
+            resultBox.className =
+                "result-box not-eligible";
+
+            status.textContent =
+                "NOT ELIGIBLE";
+
+            statusDetails.innerHTML =
+                "<strong>AGE QUALIFICATION: FAILED</strong>" +
+                "<br><br>" +
+                "The aspirant is " +
+                years + " " +
+                (years === 1 ? "year" : "years") +
+                ", " +
+                months + " " +
+                (months === 1 ? "month" : "months") +
+                ", and " +
+                days + " " +
+                (days === 1 ? "day" : "days") +
+                " old on November 2, 2026." +
+                "<br><br>" +
+                "The age is outside the required range " +
+                "of 18 through exactly 24 years old.";
+        }
+
+
+        result.style.display = "block";
+
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+
+    // =========================================================
+    // INVALID ENTRY
+    // =========================================================
+
+    function showInvalid() {
+
+        const invalidMessage =
+            document.getElementById("invalidMessage");
+
+        const result =
+            document.getElementById("result");
+
+        result.style.display = "none";
+
+        invalidMessage.style.display = "block";
+
+        invalidMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+
+
+    // =========================================================
+    // RESET
+    // =========================================================
+
+    function resetVerifier() {
+
+        document.getElementById("dob").value = "";
+
+        document.getElementById(
+            "result"
+        ).style.display = "none";
+
+        document.getElementById(
+            "invalidMessage"
+        ).style.display = "none";
+
+        document.getElementById("dob").focus();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    // =========================================================
+    // PRESS ENTER TO VERIFY
+    // =========================================================
+
+    document.getElementById("dob").addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                verifyAge();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
+```
